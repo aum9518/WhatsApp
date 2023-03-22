@@ -1,2 +1,85 @@
-package whatsApp.model;public class User {
+package whatsApp.model;
+
+import whatsApp.enums.Gender;
+import whatsApp.enums.Status;
+
+import java.util.Map;
+
+public class User {
+    private int id;
+    private String firstName;
+    private String phoneNumber;
+    private String password;
+    private String imege = "'DEFAULT IMAGE'";
+    private Status status = Status.I_AM_USING_WHATSAPP;
+    private Map<String,String> messages;
+
+    public User() {
+    }
+
+    public User(Map<String, String> messages) {
+        this.messages = messages;
+    }
+
+    public User(int id, String firstName, String phoneNumber, String password, String imege, String status, Map<String, String>messages){
+        this.id=id;
+        this.firstName=firstName;
+        this.phoneNumber=phoneNumber;
+        this.password=password;
+        this.imege=imege;
+        this.status= Status.valueOf(status);
+        this.messages=messages;
+    }
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){
+        this.id=id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public String getphoneNumber(){
+        return phoneNumber;
+    }
+    public void setphoneNumber(String phoneNumber){
+        this.phoneNumber=phoneNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password){
+        this.password=password;
+    }
+    public String getImege(){
+        return imege;
+    }
+    public void setImege(String image){
+        this.imege=image;
+    }
+    public Status getStatus(){
+        return status;
+    }
+    public void setStatus(Status status){
+        this.status=status;
+    }
+
+    @Override
+    public String toString() {
+        return "" +
+                "\nid=" + id +
+                "\n firstName = '" + firstName + '\'' +
+                "\n phoneNumber = '" + phoneNumber + '\'' +
+                "\n password = '" + password + '\'' +
+                "\n imege =' " + imege + '\'' +
+                "\n status = " + status +
+                "\n messages = " + messages +
+                ' ';
+    }
 }
