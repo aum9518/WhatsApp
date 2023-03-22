@@ -1,6 +1,7 @@
 package whatsApp.dao.Impl;
 
 import whatsApp.dao.ProfileServicedao;
+import whatsApp.enums.Status;
 import whatsApp.exceptions.MyException;
 import whatsApp.model.Group;
 import whatsApp.model.User;
@@ -119,16 +120,80 @@ public class ProfileServiceImpldao implements ProfileServicedao {
 
     @Override
     public void getAllWhatsAppStatus() {
-
+        int counter = 0;
+        for (Status a:Status.values()) {
+            counter++;
+            System.out.println(counter+"->"+a);
+        }
     }
 
     @Override
     public String changeProfilePhoto(Group group) {
+        boolean isTrue = true;
+        boolean isTrue1 = true;
+        System.out.println("Enter user name:");
+        String name = new Scanner(System.in).nextLine();
+        System.out.println("Enter password");
+        String password = new Scanner(System.in).nextLine();
+        for (User a: group.getUsers()) {
+            if (a.getFirstName().equals(name)){
+                isTrue = true;
+                if (a.getPassword().equals(password)){
+                    isTrue1 = true;
+                    System.out.println("Put photo link here: ");
+                    a.setImege(new Scanner(System.in).nextLine());
+                    System.out.println(a);
+                    return "Successfully changed!";
+                }else {
+                    isTrue1 = false;
+                }
+            }else {
+                isTrue = false;
+            }
+        }
+        try{
+            if (!isTrue){
+                throw new MyException("Invalid user name!");
+            }
+            if (!isTrue1){
+                throw new MyException("Invalid password!");
+            }
+        } catch (MyException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
     @Override
     public String changeWhatsappStatus(Group group) {
+        boolean isTrue = true;
+        boolean isTrue1 = true;
+        System.out.println("Enter user name:");
+        String name = new Scanner(System.in).nextLine();
+        System.out.println("Enter password");
+        String password = new Scanner(System.in).nextLine();
+        for (User a: group.getUsers()) {
+            if (a.getFirstName().equals(name)){
+                isTrue = true;
+                if (a.getPassword().equals(password)){
+                    isTrue1 = true;
+                }else {
+                    isTrue1 = false;
+                }
+            }else {
+                isTrue = false;
+            }
+        }
+        try{
+            if (!isTrue){
+                throw new MyException("Invalid user name!");
+            }
+            if (!isTrue1){
+                throw new MyException("Invalid password!");
+            }
+        } catch (MyException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
