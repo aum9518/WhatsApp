@@ -3,6 +3,7 @@ package whatsApp.model;
 import whatsApp.enums.Gender;
 import whatsApp.enums.Status;
 
+import java.util.List;
 import java.util.Map;
 
 public class User {
@@ -13,8 +14,14 @@ public class User {
     private String imege = "'DEFAULT IMAGE'";
     private Status status = Status.I_AM_USING_WHATSAPP;
     private Map<String,String> messages;
+    private List<User>list;
 
     public User() {
+    }
+
+    public User(Map<String, String> messages, List<User> list) {
+        this.messages = messages;
+        this.list = list;
     }
 
     public User(Map<String, String> messages) {
@@ -68,6 +75,30 @@ public class User {
     }
     public void setStatus(Status status){
         this.status=status;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Map<String, String> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Map<String, String> messages) {
+        this.messages = messages;
+    }
+
+    public List<User> getList() {
+        return list;
+    }
+
+    public void setList(List<User> list) {
+        this.list = list;
     }
 
     @Override

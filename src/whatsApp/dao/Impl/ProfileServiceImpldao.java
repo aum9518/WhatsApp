@@ -13,7 +13,8 @@ public class ProfileServiceImpldao implements ProfileServicedao {
     public User installWhatsApp(Group group) {
         boolean isTrue = true;
         Map<String,String>map=new HashMap<>();
-        User user = new User(map);
+        List<User>userList=new ArrayList<>();
+        User user = new User(map,userList);
 
         System.out.print("Enter phone number: ");
         String number  = new Scanner(System.in).nextLine();
@@ -226,6 +227,27 @@ public class ProfileServiceImpldao implements ProfileServicedao {
                 isTrue = true;
                 if (a.getPassword().equals(password)){
                     isTrue1 = true;
+                    System.out.println("Enter phone number: ");
+                    String number  = new Scanner(System.in).nextLine();
+                    try{
+                        if (!number.startsWith("+996") && !number.startsWith("0")){
+                            throw new MyException("Use country code or '0'");
+                        }
+                        if (!(number.length() ==10) && !(number.length() ==14)){
+                            throw new MyException("Numbers length must be 10 or 14 charachters");
+                        }
+                    } catch (MyException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    for (User x: group.getUsers()) {
+                        if (x.getPhoneNumber().equals(number)){
+                            a.getList().add(x);
+                            System.out.println(a.getList());
+                            break;
+                        }else {
+                            System.out.println("The number does not exist");
+                        }
+                    }
                 }else {
                     isTrue1 = false;
                 }
@@ -258,6 +280,24 @@ public class ProfileServiceImpldao implements ProfileServicedao {
                 isTrue = true;
                 if (a.getPassword().equals(password)){
                     isTrue1 = true;
+                    for (User c:a.getList()) {
+                        System.out.println("Your contacts: ");
+                        System.out.println(c.getFirstName());
+                        System.out.println("Choose one of them: ");
+                        String userName = new  Scanner(System.in).nextLine();
+                        if (c.getFirstName().equals(userName)){
+                            System.out.println(c.getMessages());
+                            System.out.println("Enter the message: ");
+                            String message = new Scanner(System.in).nextLine();
+                            System.out.println("Do you want to send it(yes/no)?");
+                            String answer = new Scanner(System.in).nextLine();
+                            if (answer.contains("yes")){
+                                a.getMessages().put(a.getFirstName(),message);
+                            } else if (answer.contains("no")) {
+                                System.out.println("Your message was not sent!");
+                            }
+                        }
+                    }
                 }else {
                     isTrue1 = false;
                 }
