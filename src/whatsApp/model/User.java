@@ -11,6 +11,7 @@ public class User {
     private String firstName;
     private String phoneNumber;
     private String password;
+    private Gender gender;
     private String imege = "'DEFAULT IMAGE'";
     private Status status = Status.I_AM_USING_WHATSAPP;
     private List<Map<String,String>> messages;
@@ -37,6 +38,14 @@ public class User {
         this.status = status;
         this.messages = messages;
         this.list = list;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public int getId(){
@@ -112,6 +121,7 @@ public class User {
                 "\n password = '" + password + '\'' +
                 "\n imege =' " + imege + '\'' +
                 "\n status = " + status +
+                "\n gender = " + gender +
                 "\n messages = " + messages +
                 ' ';
     }

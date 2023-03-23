@@ -1,6 +1,7 @@
 package whatsApp.dao.Impl;
 
 import whatsApp.dao.ProfileServicedao;
+import whatsApp.enums.Gender;
 import whatsApp.enums.Status;
 import whatsApp.exceptions.MyException;
 import whatsApp.model.Group;
@@ -15,72 +16,84 @@ public class ProfileServiceImpldao implements ProfileServicedao {
         List<Map<String,String>>map=new ArrayList<>();
         List<User>userList=new ArrayList<>();
         User user = new User(map,userList);
+        boolean istrue = true;
 
     System.out.print("Enter phone number: ");
     String number = new Scanner(System.in).nextLine();
     try {
         if (!number.startsWith("+996") && !number.startsWith("0")) {
             throw new MyException("Use country code or '0'");
-        }
-        if (!(number.length() == 10) && !(number.length() == 14)) {
-            throw new MyException("Numbers length must be 10 or 14 charachters");
-        }
-        user.setphoneNumber(number);
-    } catch (MyException e) {
-        System.out.println(e.getMessage());
-    }
+        }else {
+            if (!(number.length() == 10) && !(number.length() == 14)) {
+                throw new MyException("Numbers length must be 10 or 14 charachters");
+            }else {
+                user.setphoneNumber(number);
+                System.out.print("Enter user name: ");
+                String name = new Scanner(System.in).nextLine();
+                if (!group.getUsers().isEmpty()) {
+                    for (User a : group.getUsers()) {
+                        if (!a.getFirstName().equals(name)) {
+                            isTrue = true;
+                            user.setFirstName(name);
+                            System.out.print("Enter password: ");
+                            String password = new Scanner(System.in).nextLine();
+                            try {
+                                if (password.length() < 7) {
+                                    throw new MyException("Password length must be 7 charachters");
 
-    System.out.print("Enter user name: ");
-    String name = new Scanner(System.in).nextLine();
-    if (!group.getUsers().isEmpty()) {
-        for (User a : group.getUsers()) {
-            if (!a.getFirstName().equals(name)) {
-                isTrue = true;
-                user.setFirstName(name);
-                System.out.print("Enter password: ");
-                String password = new Scanner(System.in).nextLine();
+                                }
+                                user.setPassword(password);
+                            } catch (MyException e) {
+                                System.out.println(e.getMessage());
+                            }
+                            System.out.println("Enter gender(male/female)");
+                            String gender = new Scanner(System.in).nextLine().toUpperCase();
+                            user.setGender(Gender.valueOf(gender));
+                            user.setId(group.getUsers().size() + 1);
+                            group.getUsers().add(user);
+                            return user;
+                        } else {
+                            isTrue = false;
+                            break;
+                        }
+                    }
+                } else {
+                    user.setFirstName(name);
+                    System.out.print("Enter password: ");
+                    String password = new Scanner(System.in).nextLine();
+                    try {
+                        if (password.length() < 7) {
+                            throw new MyException("Password length must be 7 charachters");
+
+                        }
+                        user.setPassword(password);
+                        System.out.println("Enter gender(male/female)");
+                        String gender = new Scanner(System.in).nextLine().toUpperCase();
+                        user.setGender(Gender.valueOf(gender));
+                    } catch (MyException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    user.setId(group.getUsers().size() + 1);
+                    group.getUsers().add(user);
+                    return user;
+                }
                 try {
-                    if (password.length() < 7) {
-                        throw new MyException("Password length must be 7 charachters");
+                    if (!isTrue) {
+                        throw new MyException("User name already has been taken!");
 
                     }
-                    user.setPassword(password);
                 } catch (MyException e) {
                     System.out.println(e.getMessage());
                 }
-                user.setId(group.getUsers().size() + 1);
-                group.getUsers().add(user);
-                return user;
-            } else {
-                isTrue = false;
-                break;
             }
         }
-    } else {
-        user.setFirstName(name);
-        System.out.print("Enter password: ");
-        String password = new Scanner(System.in).nextLine();
-        try {
-            if (password.length() < 7) {
-                throw new MyException("Password length must be 7 charachters");
 
-            }
-            user.setPassword(password);
-        } catch (MyException e) {
-            System.out.println(e.getMessage());
-        }
-        user.setId(group.getUsers().size() + 1);
-        group.getUsers().add(user);
-        return user;
-    }
-    try {
-        if (!isTrue) {
-            throw new MyException("User name already has been taken!");
 
-        }
     } catch (MyException e) {
         System.out.println(e.getMessage());
     }
+
+
 
 
         return null;
@@ -262,6 +275,10 @@ public class ProfileServiceImpldao implements ProfileServicedao {
             if (!isTrue){
                 throw new MyException("Invalid user name!");
             }
+        } catch (MyException e) {
+            System.out.println(e.getMessage());
+        }
+        try{
             if (!isTrue1){
                 throw new MyException("Invalid password!");
             }
@@ -449,6 +466,54 @@ public class ProfileServiceImpldao implements ProfileServicedao {
                 if (a.getPassword().equals(password)){
                     isTrue1 = true;
                     return a.getList();
+                }else {
+                    isTrue1 = false;
+                }
+            }else {
+                isTrue = false;
+            }
+        }
+        try{
+            if (!isTrue){
+                throw new MyException("Invalid user name!");
+            }
+            if (!isTrue1){
+                throw new MyException("Invalid password!");
+            }
+        } catch (MyException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public User updatePhoneNumber(Group group) {
+        boolean isTrue = true;
+        boolean isTrue1 = true;
+        System.out.println("Enter user name:");
+        String name = new Scanner(System.in).nextLine();
+        System.out.println("Enter password");
+        String password = new Scanner(System.in).nextLine();
+        for (User a: group.getUsers()) {
+            if (a.getFirstName().equals(name)){
+                isTrue = true;
+                if (a.getPassword().equals(password)){
+                    isTrue1 = true;
+                    System.out.println("Enter new phone number: ");
+                    String number  = new Scanner(System.in).nextLine();
+                    try{
+                        if (!number.startsWith("+996") && !number.startsWith("0")){
+                            throw new MyException("Use country code or '0'");
+                        }
+                        if (!(number.length() ==10) && !(number.length() ==14)){
+                            throw new MyException("Numbers length must be 10 or 14 charachters");
+                        }
+                    } catch (MyException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    a.setphoneNumber(number);
+                    return a;
+
                 }else {
                     isTrue1 = false;
                 }

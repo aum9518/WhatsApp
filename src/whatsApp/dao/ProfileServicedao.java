@@ -16,5 +16,6 @@ public interface ProfileServicedao {
     void deleteWhatsApp(Group group);
     void deleteContact(Group group);
     List<User> getAllContacts(Group group);
+    User updatePhoneNumber(Group group);
 
 }

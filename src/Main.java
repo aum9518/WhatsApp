@@ -26,6 +26,7 @@ public class Main {
                     8.Delete WhatsApp
                     9.Delete contact
                     10.Get all contacts
+                    11.Update phone number
                     """);
             int comand = new Scanner(System.in).nextInt();
             switch (comand){
@@ -39,6 +40,7 @@ public class Main {
                 case 8-> profileService.deleteWhatsApp(group);
                 case 9-> profileService.deleteContact(group);
                 case 10-> System.out.println(profileService.getAllContacts(group));
+                case 11-> System.out.println(profileService.updatePhoneNumber(group));
                 default->System.out.println("Error");
             }
 

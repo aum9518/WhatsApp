@@ -59,4 +59,9 @@ public class ProfileServiceImpl implements ProfileService {
     public List<User> getAllContacts(Group group) {
         return profileServiceImpldao.getAllContacts(group);
     }
+
+    @Override
+    public User updatePhoneNumber(Group group) {
+        return profileServiceImpldao.updatePhoneNumber(group);
+    }
 }
