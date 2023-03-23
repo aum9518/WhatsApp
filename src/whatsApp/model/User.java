@@ -13,30 +13,32 @@ public class User {
     private String password;
     private String imege = "'DEFAULT IMAGE'";
     private Status status = Status.I_AM_USING_WHATSAPP;
-    private Map<String,String> messages;
+    private List<Map<String,String>> messages;
     private List<User>list;
 
     public User() {
     }
 
-    public User(Map<String, String> messages, List<User> list) {
+    public User(List<Map<String, String>> messages, List<User> list) {
         this.messages = messages;
         this.list = list;
     }
 
-    public User(Map<String, String> messages) {
+    public User(List<Map<String, String>> messages) {
         this.messages = messages;
     }
 
-    public User(int id, String firstName, String phoneNumber, String password, String imege, String status, Map<String, String>messages){
-        this.id=id;
-        this.firstName=firstName;
-        this.phoneNumber=phoneNumber;
-        this.password=password;
-        this.imege=imege;
-        this.status= Status.valueOf(status);
-        this.messages=messages;
+    public User(int id, String firstName, String phoneNumber, String password, String imege, Status status, List<Map<String, String>> messages, List<User> list) {
+        this.id = id;
+        this.firstName = firstName;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.imege = imege;
+        this.status = status;
+        this.messages = messages;
+        this.list = list;
     }
+
     public int getId(){
         return id;
     }
@@ -85,11 +87,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Map<String, String> getMessages() {
+    public List<Map<String, String>> getMessages() {
         return messages;
     }
 
-    public void setMessages(Map<String, String> messages) {
+    public void setMessages(List<Map<String, String>> messages) {
         this.messages = messages;
     }
 

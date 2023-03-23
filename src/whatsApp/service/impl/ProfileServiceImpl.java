@@ -5,6 +5,8 @@ import whatsApp.model.Group;
 import whatsApp.model.User;
 import whatsApp.service.ProfileService;
 
+import java.util.List;
+
 public class ProfileServiceImpl implements ProfileService {
     ProfileServiceImpldao profileServiceImpldao = new ProfileServiceImpldao();
     @Override
@@ -46,5 +48,15 @@ public class ProfileServiceImpl implements ProfileService {
     public void deleteWhatsApp(Group group) {
         profileServiceImpldao.deleteWhatsApp(group);
 
+    }
+
+    @Override
+    public void deleteContact(Group group) {
+        profileServiceImpldao.deleteContact(group);
+    }
+
+    @Override
+    public List<User> getAllContacts(Group group) {
+        return profileServiceImpldao.getAllContacts(group);
     }
 }

@@ -3,6 +3,8 @@ package whatsApp.service;
 import whatsApp.model.Group;
 import whatsApp.model.User;
 
+import java.util.List;
+
 public interface ProfileService {
         User installWhatsApp(Group group);
         User goToProfile(Group group);
@@ -12,4 +14,6 @@ public interface ProfileService {
         void addNewContact(Group group);
         void sendMessage(Group group);
         void deleteWhatsApp(Group group);
+        void deleteContact(Group group);
+        List<User> getAllContacts(Group group);
 }

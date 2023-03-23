@@ -24,23 +24,22 @@ public class Main {
                     6.Add contact
                     7.Send message
                     8.Delete WhatsApp
+                    9.Delete contact
+                    10.Get all contacts
                     """);
             int comand = new Scanner(System.in).nextInt();
             switch (comand){
-                case 1:
-                    System.out.println(profileService.installWhatsApp(group));break;
-                case 2:
-                    System.out.println(profileService.goToProfile(group));break;
-                case 3: profileService.getAllWhatsAppStatus();break;
-                case 4:
-                    System.out.println(profileService.changeProfilePhoto(group));break;
-                case 5:
-                    System.out.println(profileService.changeWhatsappStatus(group));break;
-                case 6: profileService.addNewContact(group);break;
-                case 7: profileService.sendMessage(group);break;
-                case 8: profileService.deleteWhatsApp(group);break;
-                default:
-                    System.out.println("Error");break;
+                case 1-> System.out.println(profileService.installWhatsApp(group));
+                case 2-> System.out.println(profileService.goToProfile(group));
+                case 3-> profileService.getAllWhatsAppStatus();
+                case 4-> System.out.println(profileService.changeProfilePhoto(group));
+                case 5-> System.out.println(profileService.changeWhatsappStatus(group));
+                case 6-> profileService.addNewContact(group);
+                case 7-> profileService.sendMessage(group);
+                case 8-> profileService.deleteWhatsApp(group);
+                case 9-> profileService.deleteContact(group);
+                case 10-> System.out.println(profileService.getAllContacts(group));
+                default->System.out.println("Error");
             }
 
         }
