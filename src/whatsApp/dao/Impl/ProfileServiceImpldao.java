@@ -13,7 +13,7 @@ public class ProfileServiceImpldao implements ProfileServicedao {
     @Override
     public User installWhatsApp(Group group) {
         boolean isTrue = true;
-        List<Map<String,String>>map=new ArrayList<>();
+        List<String>map=new ArrayList<>();
         List<User>userList=new ArrayList<>();
         User user = new User(map,userList);
         boolean istrue = true;
@@ -230,18 +230,16 @@ public class ProfileServiceImpldao implements ProfileServicedao {
 
     @Override
     public void addNewContact(Group group) {
-        boolean isTrue = true;
-        boolean isTrue1 = true;
+        boolean isTrue = false;
+        boolean isTrue1 = false;
         boolean isTrue2 = true;
         System.out.println("Enter user name:");
         String name = new Scanner(System.in).nextLine();
         System.out.println("Enter password");
         String password = new Scanner(System.in).nextLine();
         for (User a: group.getUsers()) {
-            if (a.getFirstName().equals(name)){
-                isTrue = true;
-                if (a.getPassword().equals(password)){
-                    isTrue1 = true;
+            if (a.getFirstName().equals(name) && a.getPassword().equals(password)){
+                    isTrue1 = false;
                     System.out.println("Enter phone number: ");
                     String number  = new Scanner(System.in).nextLine();
                     try{
@@ -264,22 +262,20 @@ public class ProfileServiceImpldao implements ProfileServicedao {
                             isTrue2=false;
                         }
                     }
+                    break;
                 }else {
-                    isTrue1 = false;
+                    isTrue1 = true;
                 }
-            }else {
-                isTrue = false;
-            }
         }
+//        try{
+//            if (isTrue){
+//                throw new MyException("Invalid user name!");
+//            }
+//        } catch (MyException e) {
+//            System.out.println(e.getMessage());
+//        }
         try{
-            if (!isTrue){
-                throw new MyException("Invalid user name!");
-            }
-        } catch (MyException e) {
-            System.out.println(e.getMessage());
-        }
-        try{
-            if (!isTrue1){
+            if (isTrue1){
                 throw new MyException("Invalid password!");
             }
             if (!isTrue2){
@@ -295,6 +291,7 @@ public class ProfileServiceImpldao implements ProfileServicedao {
         boolean isTrue = true;
         boolean isTrue1 = true;
         List<Map<String,String>>list = new ArrayList<>();
+        List<String>messages  =new ArrayList<>();
         System.out.println("Enter user name:");
         String name = new Scanner(System.in).nextLine();
         System.out.println("Enter password");
@@ -310,32 +307,41 @@ public class ProfileServiceImpldao implements ProfileServicedao {
                     }
                     System.out.println("Choose one of them: ");
                     String userName = new  Scanner(System.in).nextLine();
+                    System.out.println("History: \n"+a.getMessages());
                     for (User d:a.getList()) {
                         if (d.getFirstName().equals(userName)){
-                           System.out.println(d.getMessages());
+                          System.out.println(d.getMessages());
                             //System.out.println(list);
                         }
                     }
                     System.out.println("Enter the message: ");
                     String message = new Scanner(System.in).nextLine();
+
                     System.out.println("Do you want to send it(yes/no)?");
                     String answer = new Scanner(System.in).nextLine();
                     for (User d:a.getList()) {
-                        Map<String,String>map=new HashMap<>();
+                       // Map<String,String>map=new HashMap<>();
                         if (d.getFirstName().equals(userName)){
                           //  System.out.println(d.getMessages());
 
                             if (answer.contains("yes")){
-                                map.put(a.getFirstName(),message);
-                                a.getMessages().add(map);
 
-                              //  list=a.getMessages().entrySet().stream().toList();
+                               /* map.put(a.getFirstName(),message);
+                                messages.add(map);*/
+                                messages.add(a.getFirstName());
+                                messages.add(message);
+                                a.getMessages().addAll(messages);
+
+
+
+                                //  list=a.getMessages().entrySet().stream().toList();
                                // list.add(a.getMessages());
                             } else if (answer.contains("no")) {
                                 System.out.println("Your message was not sent!");
                             }
                         }
                     }
+
                 }else {
                     isTrue1 = false;
                 }

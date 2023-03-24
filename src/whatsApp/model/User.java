@@ -14,26 +14,24 @@ public class User {
     private Gender gender;
     private String imege = "'DEFAULT IMAGE'";
     private Status status = Status.I_AM_USING_WHATSAPP;
-    private List<Map<String,String>> messages;
+    private List<String> messages;
     private List<User>list;
 
     public User() {
     }
 
-    public User(List<Map<String, String>> messages, List<User> list) {
+    public User(List<String> messages, List<User> list) {
         this.messages = messages;
         this.list = list;
     }
 
-    public User(List<Map<String, String>> messages) {
-        this.messages = messages;
-    }
 
-    public User(int id, String firstName, String phoneNumber, String password, String imege, Status status, List<Map<String, String>> messages, List<User> list) {
+    public User(int id, String firstName, String phoneNumber, String password, Gender gender, String imege, Status status, List<String> messages, List<User> list) {
         this.id = id;
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.gender = gender;
         this.imege = imege;
         this.status = status;
         this.messages = messages;
@@ -96,11 +94,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Map<String, String>> getMessages() {
+    public List<String> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<Map<String, String>> messages) {
+    public void setMessages(List<String> messages) {
         this.messages = messages;
     }
 
